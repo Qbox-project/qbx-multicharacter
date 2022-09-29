@@ -408,7 +408,7 @@
                         case "setupCharacters":
                             var newChars = []
                             for (var i = 0; i < event.data.characters.length; i++) {
-                                newChars[event.data.characters[i].cid] = event.data.characters[i]
+                                newChars[event.data.characters[i].charinfo.cid] = event.data.characters[i]
                             }
                             viewmodel.characters = newChars
                             break;
