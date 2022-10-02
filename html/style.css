@@ -293,7 +293,7 @@
     left: 32px;
     padding: 30px;
     font-family: 'Poppins', sans-serif;
-    background-color: #161923f2;
+    background-color: #141517f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     transition: 400ms;
@@ -310,7 +310,7 @@
 
 .material-symbols-outlined {
     color: #ededed;
-    background-color: #DC143C;
+    background-color: #C0392B;
     font-weight: 900;
     border-radius: .3vh;
     padding: .3vh;
@@ -343,7 +343,7 @@
 }
 
 .theme--light.v-list {
-    background: #182131 !important;
+    background: #141517f2 !important;
 }
 
 select {
@@ -523,23 +523,23 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .v-date-picker-table .v-btn--active {
-    background: #DC143C;
+    background: #F1E542f2;
 }
 
 .theme--light.v-picker__body {
-    background: #161923f2 !important;
+    background: #141517f2 !important;
 }
 
 .v-picker__actions.v-card__actions {
-    background: rgb(24 29 41 / 95%) !important
+    background: #141517f5 !important
 }
 
 .v-picker__title.primary {
-    background: #DC143C !important;
+    background: #F1E542f2 !important;
 }
 
 .theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
-    color: white !important;
+    color: #ededed !important;
 }
 
 .v-date-picker-table .v-btn__content,
@@ -549,11 +549,11 @@ input[type="date"]::-webkit-clear-button {
 .v-date-picker-header__value button,
 .v-date-picker-header__value button:hover,
 .v-date-picker-years li {
-    color: white !important;
+    color: #ededed !important;
 }
 
 button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--light.accent--text {
-    border-color: #DC143C;
+    border-color: #F1E542;
 }
 
 .v-date-picker-years {
