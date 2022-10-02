@@ -81,7 +81,6 @@
 .character:hover {
     background-color: #F1E542a6;
     box-shadow: rgb(37 17 17 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18;
-    color: #141517 !important;
 }
 
 .character>span {
