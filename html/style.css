@@ -2,7 +2,7 @@
 
 .characters::-webkit-scrollbar {
     display: none;
-} 
+}
 
 .main-screen {
     position: absolute;
@@ -22,14 +22,14 @@
     max-height: 70%;
     left: 14%;
     top: 20%;
-    background-color: #161923f2;
+    background-color: #141517f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     padding: 30px;
     transition: 400ms;
 
-    overflow-y: scroll!important;
-    overflow-x: hidden!important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -38,7 +38,7 @@
 .characters-list::-webkit-scrollbar {
     display: none;
 }
-  
+
 
 .character-list-header {
     text-transform: uppercase;
@@ -47,7 +47,7 @@
     width: 100%;
     height: 10%;
     right: 0;
-} 
+}
 
 .character-list-header>p {
     text-align: center;
@@ -79,8 +79,9 @@
 }
 
 .character:hover {
-    background-color: #a90d2ca6;
-    box-shadow: rgb(37 17 17 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18
+    background-color: #F1E542a6;
+    box-shadow: rgb(37 17 17 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18;
+    color: #141517 !important;
 }
 
 .character>span {
@@ -101,7 +102,7 @@
 }
 
 .char-selected {
-    background-color: #a90d2ca6;
+    background-color: #F1E542a6;
     box-shadow: rgb(37 17 20 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18;
     transition: 250ms;
 }
@@ -131,18 +132,19 @@
 }
 
 #play {
-    background-color: rgb(47 134 67);
+    background-color: #27AE60;
     border-radius: .3vh;
     transition: all 0.2s ease;
 }
 
 #delete {
-    background-color: rgb(144 41 62);
+    background-color: #C0392B;
     border-radius: .3vh;
     transition: all 0.2s ease;
 }
 
-#play:hover, #delete:hover {
+#play:hover,
+#delete:hover {
     box-shadow: rgb(17 17 37 / 25%) 0px 30px 60px -12px inset, rgb(54 80 154 / 30%) 0px 18px 36px -18px;
 }
 
@@ -157,7 +159,7 @@
     right: 14%;
     top: 20%;
     padding: 30px;
-    background-color: #161923f2;
+    background-color: #141517f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     overflow: visible !important;
@@ -193,7 +195,7 @@
     margin-top: 25px;
 }
 
-.character-info table, 
+.character-info table,
 .character-info tbody,
 .character-info tr,
 .character-info td {
@@ -233,23 +235,23 @@
 }
 
 .v-btn__content {
-    color: white!important;
-    font-weight: 600!important;
+    color: white !important;
+    font-weight: 600 !important;
 }
 
 .v-btn.v-size--large .v-btn__content {
-    font-size: 1.75vh!important;
+    font-size: 1.75vh !important;
 }
 
 .v-btn:not(.v-size--large) .v-btn__content {
-    font-size: 1rem!important;
+    font-size: 1rem !important;
 }
 
 .characters-delete-block-header {
     width: 100%;
     color: #ededed;
     text-align: left;
-    font-size: 2vh!important;
+    font-size: 2vh !important;
     line-height: 29px;
     font-family: 'Poppins', sans-serif;
     font-weight: 900;
@@ -328,11 +330,13 @@
     overflow: visible !important;
 }
 
-.theme--light.v-input, .theme--light.v-input input,
-.theme--light.v-input, .theme--light.v-input input::placeholder,
+.theme--light.v-input,
+.theme--light.v-input input,
+.theme--light.v-input,
+.theme--light.v-input input::placeholder,
 .v-list-item__title,
 .v-select__selection.v-select__selection--comma {
-    color: white!important;
+    color: white !important;
 }
 
 .v-menu__content.theme--light.menuable__content__active {
@@ -340,7 +344,7 @@
 }
 
 .theme--light.v-list {
-    background: #182131!important;
+    background: #182131 !important;
 }
 
 select {
@@ -435,7 +439,7 @@ input[type="date"]::-webkit-clear-button {
     padding: 1vh;
 }
 
-.loading-container > p {
+.loading-container>p {
     color: white;
     margin-top: 1vh;
     font-family: 'Poppins', sans-serif;
@@ -477,6 +481,7 @@ input[type="date"]::-webkit-clear-button {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -499,19 +504,19 @@ input[type="date"]::-webkit-clear-button {
 .slide-top-left-fade-enter-from,
 .slide-top-left-fade-leave-to {
     transform: translateX(-10%) translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .slide-top-right-fade-enter-from,
 .slide-top-right-fade-leave-to {
     transform: translateX(10%) translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .slide-top-fade-enter-from,
 .slide-top-fade-leave-to {
     transform: translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .char-register-inputs div:not(:first-child) {
@@ -523,28 +528,29 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .theme--light.v-picker__body {
-    background: #161923f2!important;
+    background: #161923f2 !important;
 }
 
 .v-picker__actions.v-card__actions {
-    background: rgb(24 29 41 / 95%)!important
+    background: rgb(24 29 41 / 95%) !important
 }
 
 .v-picker__title.primary {
-    background: #DC143C!important;
+    background: #DC143C !important;
 }
 
 .theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
-    color: white!important;
+    color: white !important;
 }
 
 .v-date-picker-table .v-btn__content,
 .v-picker__actions .v-btn__content,
-.theme--light.v-date-picker-table .v-date-picker-table--date__week, .theme--light.v-date-picker-table th,
+.theme--light.v-date-picker-table .v-date-picker-table--date__week,
+.theme--light.v-date-picker-table th,
 .v-date-picker-header__value button,
 .v-date-picker-header__value button:hover,
 .v-date-picker-years li {
-    color: white!important;
+    color: white !important;
 }
 
 button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--light.accent--text {
@@ -552,7 +558,7 @@ button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--
 }
 
 .v-date-picker-years {
-    overflow: scroll!important;
+    overflow: scroll !important;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -564,9 +570,9 @@ button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--
 .v-input--is-disabled.v-text-field .v-input__control .v-input__slot,
 .v-input--is-disabled.v-text-field .v-input__control input[role=button],
 .character-delete>p {
-    cursor: default!important;
+    cursor: default !important;
 }
 
 .v-btn:not(.v-btn--round).v-size--large {
-    height: 3.5vh!important;
+    height: 3.5vh !important;
 }
