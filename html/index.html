@@ -352,21 +352,27 @@
                     var data = event.data;
                     switch(data.action) {
                         case "ui":
-                            viewmodel.translations = event.data.translations
-                            viewmodel.characterAmount = data.nChar;
-                            viewmodel.selectedCharacter = -1
-                            viewmodel.show.register = false
-                            viewmodel.show.delete = false
-                            viewmodel.show.characters = false
-                            viewmodel.allowDelete = event.data.enableDeleteButton
-                            EnableDeleteButton = data.enableDeleteButton;
-                            await fetch('https://qb-multicharacter/setupCharacters', {
-                                method: 'POST',
-                            });
-                            viewmodel.show.characters = true;
-                            await fetch('https://qb-multicharacter/removeBlur', {
-                                method: 'POST',
-                            });
+                            viewmodel.show.register = false;
+                            viewmodel.show.delete = false;
+                            viewmodel.show.characters = false;
+                            viewmodel.selectedCharacter = -1;
+                            if (event.data.toggle) {
+                                viewmodel.translations = event.data.translations;
+                                viewmodel.characterAmount = data.nChar;
+                                viewmodel.allowDelete = event.data.enableDeleteButton;
+                                EnableDeleteButton = data.enableDeleteButton;
+                                await fetch('https://qb-multicharacter/setupCharacters', {
+                                    method: 'POST',
+                                });
+                                viewmodel.show.characters = true;
+                                await fetch('https://qb-multicharacter/removeBlur', {
+                                    method: 'POST',
+                                });
+                            } else {
+                                viewmodel.translations = {};
+                                viewmodel.characterAmount = 0;
+                                viewmodel.allowDelete = false;
+                            }
                             break;
                         case "setupCharacters":
                             var newChars = []
