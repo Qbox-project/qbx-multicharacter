@@ -248,10 +248,10 @@
                 translations: {}
             },
             methods: {
-                click_character: function(idx, type) {
+                click_character: async function(idx, type) {
                     viewmodel.selectedCharacter = idx;
 
-                    fetch('https://qb-multicharacter/cDataPed', {
+                    await fetch('https://qb-multicharacter/cDataPed', {
                         method: 'POST',
                         body: JSON.stringify({ cData: viewmodel.characters[idx] ? viewmodel.characters[idx] : null }),
                     });
@@ -261,10 +261,10 @@
                     this.$refs.menu.save(date)
                 },
 
-                delete_character: function() {
+                delete_character: async function() {
                     if (viewmodel.show.delete == true) {
                         viewmodel.show.delete = false
-                        fetch('https://qb-multicharacter/removeCharacter', {
+                        await fetch('https://qb-multicharacter/removeCharacter', {
                             method: 'POST',
                             body: JSON.stringify({
                                 citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
@@ -279,18 +279,16 @@
                     }
                 },
 
-                play_character: function() {
+                play_character: async function() {
                     if (viewmodel.selectedCharacter && viewmodel.selectedCharacter !== -1) {
                         var data = viewmodel.characters[viewmodel.selectedCharacter]
 
                         if (data !== undefined) {
-                            fetch('https://qb-multicharacter/selectCharacter', {
+                            await fetch('https://qb-multicharacter/selectCharacter', {
                                 method: 'POST',
                                 body: JSON.stringify({ cData: data }),
                             });
-                            setTimeout(function() {
-                                viewmodel.show.characters = false
-                            }, 500)
+                            viewmodel.show.characters = false;
                         }
                         else {
                             viewmodel.registerData.firstname = undefined
@@ -306,14 +304,14 @@
 
                 },
 
-                create_character: function() {
+                create_character: async function() {
                     const registerData = viewmodel.registerData
                     var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
                     if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         viewmodel.show.register = false
 
-                        fetch('https://qb-multicharacter/createNewCharacter', {
+                        await fetch('https://qb-multicharacter/createNewCharacter', {
                             method: 'POST',
                             body: JSON.stringify({
                                 firstname: registerData.firstname,
