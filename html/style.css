@@ -70,7 +70,6 @@
     height: 7vh;
     margin-top: 1.25vh;
     font-family: 'Poppins', sans-serif;
-    border-bottom: 4px solid #74aa3200;
     transition: .1s linear;
     border-radius: .3vh;
     cursor: pointer;
