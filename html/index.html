@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>QB-Multicharacter</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <script src="vue.js"></script>
     <script src="swal2.js"></script>
 
@@ -250,28 +248,27 @@
                 translations: {}
             },
             methods: {
-                click_character: function(idx, type) {
-                    viewmodel.selectedCharacter = idx
+                click_character: async function(idx, type) {
+                    viewmodel.selectedCharacter = idx;
 
-                    if (viewmodel.characters[idx] !== undefined) {
-                        axios.post('https://qb-multicharacter/cDataPed', {
-                            cData: viewmodel.characters[idx]
-                        });
-                    }
-                    else {
-                        axios.post('https://qb-multicharacter/cDataPed', {})
-                    }
+                    await fetch('https://qb-multicharacter/cDataPed', {
+                        method: 'POST',
+                        body: JSON.stringify({ cData: viewmodel.characters[idx] ? viewmodel.characters[idx] : null }),
+                    });
                 },
 
                 save: function(date) {
                     this.$refs.menu.save(date)
                 },
 
-                delete_character: function() {
+                delete_character: async function() {
                     if (viewmodel.show.delete == true) {
                         viewmodel.show.delete = false
-                        axios.post('https://qb-multicharacter/removeCharacter', {
-                            citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
+                        await fetch('https://qb-multicharacter/removeCharacter', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
+                            }),
                         });
                     }
                     else {
@@ -282,17 +279,16 @@
                     }
                 },
 
-                play_character: function() {
+                play_character: async function() {
                     if (viewmodel.selectedCharacter && viewmodel.selectedCharacter !== -1) {
                         var data = viewmodel.characters[viewmodel.selectedCharacter]
 
                         if (data !== undefined) {
-                            axios.post('https://qb-multicharacter/selectCharacter', {
-                                cData: data
+                            await fetch('https://qb-multicharacter/selectCharacter', {
+                                method: 'POST',
+                                body: JSON.stringify({ cData: data }),
                             });
-                            setTimeout(function() {
-                                viewmodel.show.characters = false
-                            }, 500)
+                            viewmodel.show.characters = false;
                         }
                         else {
                             viewmodel.registerData.firstname = undefined
@@ -308,20 +304,23 @@
 
                 },
 
-                create_character: function() {
+                create_character: async function() {
                     const registerData = viewmodel.registerData
                     var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
                     if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         viewmodel.show.register = false
 
-                        axios.post('https://qb-multicharacter/createNewCharacter', {
-                            firstname: registerData.firstname,
-                            lastname: registerData.lastname,
-                            nationality: registerData.nationality,
-                            birthdate: registerData.date,
-                            gender: registerData.gender,
-                            cid: viewmodel.selectedCharacter,
+                        await fetch('https://qb-multicharacter/createNewCharacter', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                firstname: registerData.firstname,
+                                lastname: registerData.lastname,
+                                nationality: registerData.nationality,
+                                birthdate: registerData.date,
+                                gender: registerData.gender,
+                                cid: viewmodel.selectedCharacter,
+                            }),
                         });
                     }
                     else {
@@ -349,26 +348,30 @@
                 }
             },
             mounted () {
-                window.addEventListener('message', function (event) {
+                window.addEventListener('message', async function (event) {
                     var data = event.data;
                     switch(data.action) {
                         case "ui":
-                            viewmodel.translations = event.data.translations
-                            viewmodel.characterAmount = data.nChar;
-                            viewmodel.selectedCharacter = -1
-                            viewmodel.show.register = false
-                            viewmodel.show.delete = false
-                            viewmodel.show.characters = false
-                            viewmodel.allowDelete = event.data.enableDeleteButton
-                            EnableDeleteButton = data.enableDeleteButton;
-                            if (data.toggle) {
-                                setTimeout(function () {
-                                    axios.post('https://qb-multicharacter/setupCharacters');
-                                    setTimeout(function () {
-                                        viewmodel.show.characters = true
-                                        axios.post('https://qb-multicharacter/removeBlur');
-                                    }, 200);
-                                }, 200);
+                            viewmodel.show.register = false;
+                            viewmodel.show.delete = false;
+                            viewmodel.show.characters = false;
+                            viewmodel.selectedCharacter = -1;
+                            if (event.data.toggle) {
+                                viewmodel.translations = event.data.translations;
+                                viewmodel.characterAmount = data.nChar;
+                                viewmodel.allowDelete = event.data.enableDeleteButton;
+                                EnableDeleteButton = data.enableDeleteButton;
+                                await fetch('https://qb-multicharacter/setupCharacters', {
+                                    method: 'POST',
+                                });
+                                viewmodel.show.characters = true;
+                                await fetch('https://qb-multicharacter/removeBlur', {
+                                    method: 'POST',
+                                });
+                            } else {
+                                viewmodel.translations = {};
+                                viewmodel.characterAmount = 0;
+                                viewmodel.allowDelete = false;
                             }
                             break;
                         case "setupCharacters":
