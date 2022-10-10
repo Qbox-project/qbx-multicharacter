@@ -2,17 +2,6 @@ local cam = nil
 local charPed = nil
 local QBCore = exports['qb-core']:GetCoreObject()
 
--- Main Thread
-
-CreateThread(function()
-	while true do
-		Wait(0)
-		if NetworkIsSessionStarted() then
-			TriggerEvent('qb-multicharacter:client:chooseChar')
-			return
-		end
-	end
-end)
 
 -- Functions
 
@@ -214,4 +203,22 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     DeletePed(charPed)
     TriggerEvent('qb-multicharacter:client:chooseChar')
     cb("ok")
+end)
+
+--- Low level game event triggered when the player started the session.
+---@param name string - Name of the event https://docs.fivem.net/docs/scripting-reference/events/list/gameEventTriggered/
+---@param args any - In the case of this event "CEventNetworkStartSession" doesnt trigger any
+AddEventHandler("gameEventTriggered", function(name, args)
+    if not name == "CEventNetworkStartSession" then
+        return
+    end
+    TriggerEvent('qb-multicharacter:client:chooseChar')
+end)
+
+---Read Config.Debug for more info
+AddEventHandler("onResourceStart", function(res)
+    if not res == GetCurrentResourceName() then return end
+    if Config.Debug then
+        TriggerEvent('qb-multicharacter:client:chooseChar')
+    end
 end)
