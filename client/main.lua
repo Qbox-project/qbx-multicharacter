@@ -207,7 +207,7 @@ end)
 --- Low level game event triggered when the player started the session.
 ---@param name string - Name of the event https://docs.fivem.net/docs/scripting-reference/events/list/gameEventTriggered/
 ---@param args any - In the case of this event "CEventNetworkStartSession" doesnt trigger any
-AddEventHandler("gameEventTriggered", function(name, args)
+AddEventHandler("gameEventTriggered", function(name)
     if name == "CEventNetworkStartSession" then
         TriggerEvent('qb-multicharacter:client:chooseChar')
     end
@@ -215,8 +215,9 @@ end)
 
 ---Read Config.Debug for more info
 AddEventHandler("onResourceStart", function(res)
-    if not res == GetCurrentResourceName() then return end
-    if Config.Debug then
+    if  res == GetCurrentResourceName() then
+       if Config.Debug then
         TriggerEvent('qb-multicharacter:client:chooseChar')
+        end
     end
 end)
