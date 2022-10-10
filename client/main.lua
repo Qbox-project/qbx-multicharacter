@@ -2,7 +2,6 @@ local cam = nil
 local charPed = nil
 local QBCore = exports['qb-core']:GetCoreObject()
 
-
 -- Functions
 
 local function skyCam(bool)
@@ -212,7 +211,6 @@ AddEventHandler("gameEventTriggered", function(name, args)
     if name == "CEventNetworkStartSession" then
         TriggerEvent('qb-multicharacter:client:chooseChar')
     end
- 
 end)
 
 ---Read Config.Debug for more info
