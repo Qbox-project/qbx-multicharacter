@@ -204,10 +204,11 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     cb("ok")
 end)
 
---- Low level game event triggered when the player started the session.
----@param name string - Name of the event https://docs.fivem.net/docs/scripting-reference/events/list/gameEventTriggered/
+---This event is fired after low-level game events take place.
+---https://docs.fivem.net/docs/scripting-reference/events/list/gameEventTriggered/
+---@param name string  the game event name that was triggered
 AddEventHandler("gameEventTriggered", function(name)
-    if name == "CEventNetworkStartSession" then
+    if name == "CEventNetworkStartSession" then -- if a network session has started
         TriggerEvent('qb-multicharacter:client:chooseChar')
     end
 end)
