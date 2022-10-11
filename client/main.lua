@@ -214,9 +214,9 @@ end)
 
 ---Read Config.Debug for more info
 AddEventHandler("onResourceStart", function(res)
-    if  res == GetCurrentResourceName() then
-       if Config.Debug then
-        TriggerEvent('qb-multicharacter:client:chooseChar')
+    if res == GetCurrentResourceName() then
+        if Config.Debug then
+            TriggerEvent('qb-multicharacter:client:chooseChar')
         end
     end
 end)
