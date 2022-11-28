@@ -8,6 +8,7 @@ shared_scripts {
     '@qb-core/shared/locale.lua',
     'locales/en.lua',
     'locales/*.lua',
+    '@ox_lib/init.lua',
     'config.lua'
 }
 
@@ -32,9 +33,6 @@ files {
     'html/profanity.js'
 }
 
-dependencies {
-    'qb-core',
-    'qb-spawn'
-}
+dependency 'qb-core'
 
 lua54 'yes'
