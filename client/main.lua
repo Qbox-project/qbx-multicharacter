@@ -1,5 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
-local PreviewCam, PreviewPed
+local PreviewCam
 local RandomLocation = Config.Locations[math.random(1, #Config.Locations)]
 
 local function SetupPreviewCam(bool)
@@ -112,8 +112,6 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     DoScreenFadeOut(10)
     TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
     toggleUI(false)
-    SetEntityAsMissionEntity(PreviewPed, true, true)
-    DeleteEntity(PreviewPed)
     cb('ok')
 end)
 
