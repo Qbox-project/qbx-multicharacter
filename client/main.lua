@@ -41,6 +41,25 @@ local function toggleUI(bool)
     SetupPreviewCam(bool)
 end
 
+local function RandomClothes(Entity)
+    for i = 0, 11 do
+        SetPedComponentVariation(Entity, i, 0, 0, 0)
+    end
+    for i = 0, 7 do
+        ClearPedProp(Entity, i)
+    end
+    SetPedHeadBlendData(Entity, math.random(0, 45), math.random(0, 45), 0, math.random(0, 15), math.random(0, 15), 0, (math.random(0, 100) / 100), (math.random(0, 100) / 100), 0, true)
+    SetPedComponentVariation(Entity, 4, math.random(0, 110), 0, 0)
+    SetPedComponentVariation(Entity, 2, math.random(0, 45), 0, 0)
+    SetPedHairColor(Entity, math.random(0, 45), math.random(0, 45))
+    SetPedHeadOverlay(Entity, 2, math.random(0, 34), 1.0)
+    SetPedHeadOverlayColor(Entity, 2, 1, math.random(0, 45), 0)
+    SetPedComponentVariation(Entity, 3, math.random(0, 160), 0, 2)
+    SetPedComponentVariation(Entity, 8, math.random(0, 160), 0, 2)
+    SetPedComponentVariation(Entity, 11, math.random(0, 340), 0, 2)
+    SetPedComponentVariation(Entity, 6, math.random(0, 78), 0, 2)
+end
+
 RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
@@ -81,6 +100,7 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     Wait(1000)
     SetEntityCoords(cache.ped, RandomLocation.PedCoords.x, RandomLocation.PedCoords.y, RandomLocation.PedCoords.z, false, false, false, false)
     SetEntityHeading(cache.ped, RandomLocation.PedCoords.w)
+    RandomClothes(cache.ped)
     Wait(1500)
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
@@ -113,35 +133,23 @@ end)
 
 RegisterNUICallback('previewPed', function(Ped, cb)
     local CID = Ped.Data and Ped.Data.citizenid or nil
-    Clothing, Gender = lib.callback.await('qb-multicharacter:callback:UpdatePreviewPed', false, CID)
-    if GetEntityModel(cache.ped) ~= `mp_m_freemode_01` and Gender == 0 then
-        while not HasModelLoaded(`mp_m_freemode_01`) do RequestModel(`mp_m_freemode_01`) Wait(0) end
-        SetPlayerModel(cache.playerId, `mp_m_freemode_01`)
-    elseif GetEntityModel(cache.ped) ~= `mp_f_freemode_01` and Gender == 1 then
-        while not HasModelLoaded(`mp_f_freemode_01`) do RequestModel(`mp_f_freemode_01`) Wait(0) end
-        SetPlayerModel(cache.playerId, `mp_f_freemode_01`)
+    Clothing, Model, Gender = lib.callback.await('qb-multicharacter:callback:UpdatePreviewPed', false, CID)
+    if Model then
+        local CurrentModel = GetEntityModel(cache.ped)
+        if CurrentModel ~= `mp_m_freemode_01` and Gender == 0 then
+            while not HasModelLoaded(Model) do RequestModel(Model) Wait(0) end
+            SetPlayerModel(cache.playerId, Model)
+        elseif CurrentModel ~= `mp_f_freemode_01` and Gender == 1 then
+            while not HasModelLoaded(Model) do RequestModel(Model) Wait(0) end
+            SetPlayerModel(cache.playerId, Model)
+        end
+        SetModelAsNoLongerNeeded(Model)
+        cache:set('ped', PlayerPedId())
     end
-    cache:set('ped', PlayerPedId())
-    while not GetEntityModel(cache.ped) == `mp_m_freemode_01` and not GetEntityModel(cache.ped) == `mp_f_freemode_01` do Wait(0) end
     if Clothing then
         TriggerEvent('qb-clothing:client:loadPlayerClothing', json.decode(Clothing), cache.ped)
     else
-        for i = 0, 11 do
-            SetPedComponentVariation(cache.ped, i, 0, 0, 0)
-        end
-        for i = 0, 7 do
-            ClearPedProp(cache.ped, i)
-        end
-        SetPedHeadBlendData(cache.ped, math.random(0, 45), math.random(0, 45), 0, math.random(0, 15), math.random(0, 15), 0, (math.random(0, 100) / 100), (math.random(0, 100) / 100), 0, true)
-        SetPedComponentVariation(cache.ped, 4, math.random(0, 110), 0, 0)
-        SetPedComponentVariation(cache.ped, 2, math.random(0, 45), 0, 0)
-        SetPedHairColor(cache.ped, math.random(0, 45), math.random(0, 45))
-        SetPedHeadOverlay(cache.ped, 2, math.random(0, 34), 1.0)
-        SetPedHeadOverlayColor(cache.ped, 2, 1, math.random(0, 45), 0)
-        SetPedComponentVariation(cache.ped, 3, math.random(0, 160), 0, 2)
-        SetPedComponentVariation(cache.ped, 8, math.random(0, 160), 0, 2)
-        SetPedComponentVariation(cache.ped, 11, math.random(0, 340), 0, 2)
-        SetPedComponentVariation(cache.ped, 6, math.random(0, 78), 0, 2)
+        RandomClothes(cache.ped)
     end
     cb('ok')
 end)
@@ -172,6 +180,9 @@ CreateThread(function()
             exports.spawnmanager:setAutoSpawn(false)
             Wait(250)
 			TriggerEvent('qb-multicharacter:client:chooseChar')
+            while not HasModelLoaded(`mp_m_freemode_01`) do RequestModel(`mp_m_freemode_01`) Wait(0) end
+            while GetEntityModel(cache.ped) ~= `mp_m_freemode_01` do SetPlayerModel(cache.playerId, `mp_m_freemode_01`) Wait(0) end
+            SetModelAsNoLongerNeeded(`mp_m_freemode_01`)
 			break
 		end
 	end
