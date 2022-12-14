@@ -2,25 +2,26 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local hasDonePreloading = {}
 
 local function GiveStarterItems(source)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = QBCore.Functions.GetPlayer(source)
 
     for _, v in pairs(QBCore.Shared.StarterItems) do
-        local info = {}
-        if v.item == "id_card" then
-            info.citizenid = Player.PlayerData.citizenid
-            info.firstname = Player.PlayerData.charinfo.firstname
-            info.lastname = Player.PlayerData.charinfo.lastname
-            info.birthdate = Player.PlayerData.charinfo.birthdate
-            info.gender = Player.PlayerData.charinfo.gender
-            info.nationality = Player.PlayerData.charinfo.nationality
-        elseif v.item == "driver_license" then
-            info.firstname = Player.PlayerData.charinfo.firstname
-            info.lastname = Player.PlayerData.charinfo.lastname
-            info.birthdate = Player.PlayerData.charinfo.birthdate
-            info.type = "Class C Driver License"
+        if v.item == 'id_card' then
+            local metadata = {
+                type = string.format('%s %s', Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname),
+                description = string.format('CID: %s  \nBirth date: %s  \nSex: %s  \nNationality: %s',
+                Player.PlayerData.citizenid, Player.PlayerData.charinfo.birthdate, Player.PlayerData.charinfo.birthdate, Player.PlayerData.charinfo.nationality)
+            }
+            exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
+        elseif v.item == 'driver_license' then
+            local metadata = {
+                type = 'Class C Driver License',
+                description = string.format('First name: %s  \nLast name: %s  \nBirth date: %s',
+                Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname, Player.PlayerData.charinfo.birthdate)
+            }
+            exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
+        else
+            exports.ox_inventory:AddItem(source, v.item, v.amount)
         end
-        Player.Functions.AddItem(v.item, v.amount, false, info)
     end
 end
 
@@ -52,7 +53,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
     if QBCore.Player.Login(src, cData.citizenid) then
         repeat
-            Wait(10)
+            Wait(0)
         until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
         QBCore.Commands.Refresh(src)
@@ -66,6 +67,9 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
     local newData = {}
     newData.charinfo = data
     if QBCore.Player.Login(src, false, newData) then
+        repeat
+            Wait(0)
+        until hasDonePreloading[src]
         GiveStarterItems(src)
         if not Config.HasSpawn then
             SetPlayerRoutingBucket(src, 0)
