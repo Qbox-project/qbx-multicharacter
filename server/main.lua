@@ -40,8 +40,13 @@ lib.addCommand('deletechar', {
         { name = 'id', help = 'Player ID', type = 'number' },
     }
 }, function(source, args)
-    QBCore.Player.ForceDeleteCharacter(args.id)
-    TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.deleted_other_char", {citizenid = tostring(args.id)}))
+    local Player = QBCore.Functions.GetPlayer(args.id)
+
+    if not Player then return end
+    local CID = Player.PlayerData.citizenid
+
+    QBCore.Player.ForceDeleteCharacter(CID)
+    TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.deleted_other_char", {citizenid = tostring(CID)}))
 end)
 
 AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
