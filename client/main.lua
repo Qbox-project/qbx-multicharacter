@@ -65,6 +65,7 @@ RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This 
     DoScreenFadeOut(500)
     Wait(2000)
     SetEntityCoords(PlayerPedId(), Config.DefaultSpawn.x, Config.DefaultSpawn.y, Config.DefaultSpawn.z)
+    SetEntityHeading(PlayerPedId(), Config.DefaultHeading)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
     TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
