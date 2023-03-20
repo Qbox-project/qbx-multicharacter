@@ -8,7 +8,7 @@
     <link href="reset.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>QB-Multicharacter</title>
+    <title>Qbussin</title>
 
     <script src="vue.js"></script>
     <script src="swal2.js"></script>
@@ -251,7 +251,7 @@
                 click_character: async function(idx, type) {
                     viewmodel.selectedCharacter = idx;
 
-                    await fetch('https://qb-multicharacter/previewPed', {
+                    await fetch(`https://${GetParentResourceName()}/previewPed`, {
                         method: 'POST',
                         body: JSON.stringify({ Data: viewmodel.characters[idx] ? viewmodel.characters[idx] : null }),
                     });
@@ -264,7 +264,7 @@
                 delete_character: async function() {
                     if (viewmodel.show.delete == true) {
                         viewmodel.show.delete = false
-                        await fetch('https://qb-multicharacter/removeCharacter', {
+                        await fetch(`https://${GetParentResourceName()}/removeCharacter`, {
                             method: 'POST',
                             body: JSON.stringify({
                                 citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
@@ -284,7 +284,7 @@
                         var data = viewmodel.characters[viewmodel.selectedCharacter]
 
                         if (data !== undefined) {
-                            await fetch('https://qb-multicharacter/selectCharacter', {
+                            await fetch(`https://${GetParentResourceName()}/selectCharacter`, {
                                 method: 'POST',
                                 body: JSON.stringify({ cData: data }),
                             });
@@ -311,7 +311,7 @@
                     if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         viewmodel.show.register = false
 
-                        await fetch('https://qb-multicharacter/createNewCharacter', {
+                        await fetch(`https://${GetParentResourceName()}/createNewCharacter`, {
                             method: 'POST',
                             body: JSON.stringify({
                                 firstname: registerData.firstname,
@@ -361,11 +361,11 @@
                                 viewmodel.characterAmount = data.nChar;
                                 viewmodel.allowDelete = event.data.enableDeleteButton;
                                 EnableDeleteButton = data.enableDeleteButton;
-                                await fetch('https://qb-multicharacter/setupCharacters', {
+                                await fetch(`https://${GetParentResourceName()}/setupCharacters`, {
                                     method: 'POST',
                                 });
                                 viewmodel.show.characters = true;
-                                await fetch('https://qb-multicharacter/removeBlur', {
+                                await fetch(`https://${GetParentResourceName()}/removeBlur`, {
                                     method: 'POST',
                                 });
                             } else {
