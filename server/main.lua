@@ -25,20 +25,29 @@ local function GiveStarterItems(source)
     end
 end
 
-QBCore.Commands.Add("logout", Lang:t("commands.logout_description"), {}, false, function(source)
-    local src = source
-    QBCore.Player.Logout(src)
-    TriggerClientEvent('qb-multicharacter:client:chooseChar', src)
-end, "admin")
+lib.addCommand('logout', {
+    help = 'Logs you out of your current character',
+    restricted = 'qbcore.admin',
+}, function(source)
+    QBCore.Player.Logout(source)
+    TriggerClientEvent('qb-multicharacter:client:chooseChar', source)
+end)
 
-QBCore.Commands.Add("deletechar", Lang:t("commands.deletechar_description"), {{name = Lang:t("commands.citizenid"), help = Lang:t("commands.citizenid_help")}}, false, function(source,args)
-    if args and args[1] then
-        QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
-        TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.deleted_other_char", {citizenid = tostring(args[1])}))
-    else
-        TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.forgot_citizenid"), "error")
-    end
-end, "god")
+lib.addCommand('deletechar', {
+    help = 'Delete a players character',
+    restricted = 'qbcore.admin',
+    params = {
+        { name = 'id', help = 'Player ID', type = 'number' },
+    }
+}, function(source, args)
+    local Player = QBCore.Functions.GetPlayer(args.id)
+
+    if not Player then return end
+    local CID = Player.PlayerData.citizenid
+
+    QBCore.Player.ForceDeleteCharacter(CID)
+    TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.deleted_other_char", {citizenid = tostring(CID)}))
+end)
 
 AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
     Wait(1000) -- 1 second should be enough to do the preloading in other resources
@@ -56,7 +65,6 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
             Wait(0)
         until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
-        QBCore.Commands.Refresh(src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
         SetPlayerRoutingBucket(src, 0)
@@ -82,11 +90,9 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
         else
             if Config.StartingApartment then
                 print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
-                QBCore.Commands.Refresh(src)
                 TriggerClientEvent('apartments:client:setupSpawnUI', src, newData)
             else
                 print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
-                QBCore.Commands.Refresh(src)
                 TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
             end
         end
