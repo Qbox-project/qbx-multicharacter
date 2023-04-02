@@ -1,7 +1,7 @@
 Config = {}
 
 Config.HasSpawn = true and GetResourceState('qb-spawn') ~= 'missing' or false
-Config.HasClothing = true and GetResourceState('qb-clothing') ~= 'missing' or false
+Config.HasClothing = true and GetResourceState('illenium-appearance') ~= 'missing' or false
 Config.StartingApartment = true -- if set to false. Skips appartment choice in the beggining (if true requires qb-spawn)
 Config.EnableDeleteButton = true -- Define if the player can delete the character or not
 Config.DefaultNumberOfCharacters = 3 -- Define maximum amount of default characters (maximum 3 characters defined by default)

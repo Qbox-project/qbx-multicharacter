@@ -145,7 +145,7 @@ RegisterNUICallback('previewPed', function(Ped, cb)
         cache:set('ped', PlayerPedId())
     end
     if Clothing then
-        TriggerEvent('qb-clothing:client:loadPlayerClothing', json.decode(Clothing), cache.ped)
+        exports["illenium-appearance"]:setPedAppearance(cache.ped, json.decode(Clothing))
     else
         RandomClothes(cache.ped)
     end

@@ -130,7 +130,7 @@ lib.callback.register('qb-multicharacter:callback:UpdatePreviewPed', function(so
     local PlayerData = MySQL.single.await('SELECT * FROM players WHERE citizenid = ?', {CitizenID})
     if not Ped or not PlayerData then return end
     Charinfo = json.decode(PlayerData.charinfo)
-    return Ped.skin, Ped.model, Charinfo.gender
+    return Ped.skin, joaat(Ped.model), Charinfo.gender
 end)
 
 AddEventHandler('playerJoining', function()
