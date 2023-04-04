@@ -4,6 +4,7 @@ Config.HasSpawn = true and GetResourceState('qb-spawn') ~= 'missing' or false
 Config.HasClothing = true and GetResourceState('illenium-appearance') ~= 'missing' or false
 Config.StartingApartment = true -- if set to false. Skips appartment choice in the beggining (if true requires qb-spawn)
 Config.EnableDeleteButton = true -- Define if the player can delete the character or not
+Config.DefaultSpawn = vector4(-540.58, -212.02, 37.65, 208.88)
 Config.DefaultNumberOfCharacters = 3 -- Define maximum amount of default characters (maximum 3 characters defined by default)
 Config.PlayersNumberOfCharacters = { -- Define maximum amount of player characters by rockstar license (you can find this license in your server's database in the player table)
     ['license2:e539d0b049cc56f7a052c89fe1552e0f19d203bf'] = 5,
