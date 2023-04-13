@@ -1,7 +1,7 @@
 Config = {}
 
-Config.HasSpawn = true and GetResourceState('qbx-spawn') ~= 'missing' or false
-Config.HasClothing = true and GetResourceState('illenium-appearance') ~= 'missing' or false
+Config.HasSpawn = GetResourceState('qbx-spawn') ~= 'missing'
+Config.HasClothing = GetResourceState('illenium-appearance') ~= 'missing'
 Config.StartingApartment = true -- if set to false. Skips appartment choice in the beggining (if true requires qb-spawn)
 Config.EnableDeleteButton = true -- Define if the player can delete the character or not
 Config.DefaultSpawn = vector4(-540.58, -212.02, 37.65, 208.88)
