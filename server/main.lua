@@ -7,42 +7,43 @@ end
 
 local function GiveStarterItems(source)
     local Player = QBCore.Functions.GetPlayer(source)
-
+    if not Player then return end
+    local citizenid, firstname, lastname, gender, birthdate, nationality = Player.PlayerData.citizenid, Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname, genderString(Player.PlayerData.charinfo.gender), Player.PlayerData.charinfo.birthdate, Player.PlayerData.charinfo.nationality
     for _, v in pairs(QBCore.Shared.StarterItems) do
         if v.item == 'id_card' then
             local metadata = {
-                type = string.format('%s %s', Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname),
-                description = string.format('CID: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', Player.PlayerData.citizenid, Player.PlayerData.charinfo.birthdate, genderString(Player.PlayerData.charinfo.gender), Player.PlayerData.charinfo.nationality),
-                citizenid = Player.PlayerData.citizenid,
-                firstname = Player.PlayerData.charinfo.firstname,
-                lastname = Player.PlayerData.charinfo.lastname,
-                gender = genderString(Player.PlayerData.charinfo.gender),
-                birthdate = Player.PlayerData.charinfo.birthdate,
-                nationality = Player.PlayerData.charinfo.nationality,
+                type = string.format('%s %s', firstname, lastname),
+                description = string.format('CID: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', citizenid, birthdate, gender, nationality),
+                citizenid = citizenid,
+                firstname = firstname,
+                lastname = lastname,
+                gender = gender,
+                birthdate = birthdate,
+                nationality = nationality,
             }
             exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
         elseif v.item == 'driver_license' then
             local metadata = {
                 type = 'Class C Driver License',
-                description = string.format('CID: %s  \nFirst Name: %s  \nLast Name: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', Player.PlayerData.citizenid, Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname, Player.PlayerData.charinfo.birthdate ,genderString(Player.PlayerData.charinfo.gender), Player.PlayerData.charinfo.nationality),
-                citizenid = Player.PlayerData.citizenid,
-                firstname = Player.PlayerData.charinfo.firstname,
-                lastname = Player.PlayerData.charinfo.lastname,
-                gender = genderString(Player.PlayerData.charinfo.gender),
-                birthdate = Player.PlayerData.charinfo.birthdate,
-                nationality = Player.PlayerData.charinfo.nationality,
+                description = string.format('CID: %s  \nFirst Name: %s  \nLast Name: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', citizenid, firstname, lastname, birthdate, gender, nationality),
+                citizenid = citizenid,
+                firstname = firstname,
+                lastname = lastname,
+                gender = gender,
+                birthdate = birthdate,
+                nationality = nationality,
             }
             exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
         elseif v.item == "weaponlicense" then
             local metadata = {
                 type = 'Weapon License',
-                description = string.format('CID: %s  \nFirst Name: %s  \nLast Name: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', Player.PlayerData.citizenid, Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname, Player.PlayerData.charinfo.birthdate ,genderString(Player.PlayerData.charinfo.gender), Player.PlayerData.charinfo.nationality),
-                citizenid = Player.PlayerData.citizenid,
-                firstname = Player.PlayerData.charinfo.firstname,
-                lastname = Player.PlayerData.charinfo.lastname,
-                gender = genderString(Player.PlayerData.charinfo.gender),
-                birthdate = Player.PlayerData.charinfo.birthdate,
-                nationality = Player.PlayerData.charinfo.nationality,
+                description = string.format('CID: %s  \nFirst Name: %s  \nLast Name: %s  \nDOB: %s  \nGender: %s  \nNationality: %s ', citizenid, firstname, lastname, birthdate, gender, nationality),
+                citizenid = citizenid,
+                firstname = firstname,
+                lastname = lastname,
+                gender = gender,
+                birthdate = birthdate,
+                nationality = nationality,
             }
             exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
         else
