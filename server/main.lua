@@ -9,7 +9,7 @@ local function GiveStarterItems(source)
             local metadata = {
                 type = string.format('%s %s', Player.PlayerData.charinfo.firstname, Player.PlayerData.charinfo.lastname),
                 description = string.format('CID: %s  \nBirth date: %s  \nSex: %s  \nNationality: %s',
-                Player.PlayerData.citizenid, Player.PlayerData.charinfo.birthdate, Player.PlayerData.charinfo.gender == 0 and 'male' or 'female', Player.PlayerData.charinfo.nationality)
+                Player.PlayerData.citizenid, Player.PlayerData.charinfo.birthdate, Player.PlayerData.charinfo.gender == 0 and 'Male' or 'Female', Player.PlayerData.charinfo.nationality)
             }
             exports.ox_inventory:AddItem(source, v.item, v.amount, metadata)
         elseif v.item == 'driver_license' then
