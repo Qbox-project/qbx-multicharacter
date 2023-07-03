@@ -27,7 +27,7 @@ end
 
 lib.addCommand('logout', {
     help = 'Logs you out of your current character',
-    restricted = 'qbox.admin',
+    restricted = 'admin',
 }, function(source)
     QBCore.Player.Logout(source)
     TriggerClientEvent('qb-multicharacter:client:chooseChar', source)
@@ -35,7 +35,7 @@ end)
 
 lib.addCommand('deletechar', {
     help = 'Delete a players character',
-    restricted = 'qbox.admin',
+    restricted = 'admin',
     params = {
         { name = 'id', help = 'Player ID', type = 'number' },
     }
