@@ -65,7 +65,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
             Wait(0)
         until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
-        TriggerClientEvent('qb-spawn:client:setupSpawn', src)
+        TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
         SetPlayerRoutingBucket(src, 0)
     end
@@ -88,8 +88,13 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
                 TriggerClientEvent('qb-clothes:client:CreateFirstCharacter', src)
             end
         else
-            print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
-            TriggerClientEvent('qb-spawn:client:setupSpawn', src)
+            if Config.StartingApartment then
+                print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
+                TriggerClientEvent('apartments:client:setupSpawnUI', src, newData)
+            else
+                print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
+                TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
+            end
         end
     end
 end)
