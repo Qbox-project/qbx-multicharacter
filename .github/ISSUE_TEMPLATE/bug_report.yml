@@ -1,6 +1,7 @@
 name: Bug report
 description: Create a report to help us improve or fix something
-labels: ['bug', 'need repro']
+title: "[BUG]"
+labels: bug
 body:
   - type: markdown
     attributes:
