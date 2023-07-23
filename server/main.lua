@@ -65,7 +65,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
             Wait(0)
         until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
-        TriggerClientEvent('qbx-spawn:server:setupSpawn', src)
+        TriggerEvent('qbx-spawn:server:setupSpawn', src)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
         SetPlayerRoutingBucket(src, 0)
     end
@@ -89,7 +89,7 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
             end
         else
             print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
-            TriggerClientEvent('qbx-spawn:server:setupSpawn', src)
+            TriggerEvent('qbx-spawn:server:setupSpawn', src)
         end
     end
 end)
