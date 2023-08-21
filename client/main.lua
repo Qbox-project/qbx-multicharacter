@@ -173,21 +173,18 @@ RegisterNUICallback('removeCharacter', function(data, cb)
 end)
 
 CreateThread(function()
+	local modelHash = `mp_m_freemode_01`
 	while true do
 		Wait(0)
 		if NetworkIsSessionStarted() then
 	            pcall(function() exports.spawnmanager:setAutoSpawn(false) end)
 	            Wait(250)
 	            TriggerEvent('qb-multicharacter:client:chooseChar')
-	            while not HasModelLoaded(`mp_m_freemode_01`) do
-	                RequestModel(`mp_m_freemode_01`)
+	            lib.requestModel(modelHash)
+	            while GetEntityModel(cache.ped) ~= modelHash do
+	                SetPlayerModel(cache.playerId, modelHash)
 	                Wait(0)
 	            end
-	            while GetEntityModel(cache.ped) ~= `mp_m_freemode_01` do
-	                SetPlayerModel(cache.playerId, `mp_m_freemode_01`)
-	                Wait(0)
-	            end
-	            SetModelAsNoLongerNeeded(`mp_m_freemode_01`)
 	            break
 	        end
 	end
