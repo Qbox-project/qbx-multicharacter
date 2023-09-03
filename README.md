@@ -4,11 +4,10 @@ Multi Character Feature for QB-Core Framework :people_holding_hands:
 Added support for setting default number of characters per player per Rockstar license
 
 ## Dependencies
-- [qb-core](https://github.com/qbcore-framework/qb-core)
-- [qb-spawn](https://github.com/qbcore-framework/qb-spawn) - Spawn selector
-- [qb-apartments](https://github.com/qbcore-framework/qb-apartments) - For giving the player a apartment after creating a character.
-- [qb-clothing](https://github.com/qbcore-framework/qb-clothing) - For the character creation and saving outfits.
-- [qb-weathersync](https://github.com/qbcore-framework/qb-weathersync) - For adjusting the weather while player is creating a character.
+- [qbx-core](https://github.com/Qbox-project/qbx-core)
+- [qbx-spawn](https://github.com/Qbox-project/qbx-spawn) - Spawn selector
+- [qbx-apartments](https://github.com/Qbox-project/qbx-apartments) - For giving the player a apartment after creating a character.
+- [qbx-weathersync](https://github.com/Qbox-project/qbx-weathersync) - For adjusting the weather while player is creating a character.
 
 ## Screenshots
 ![Character Selection](https://cdn.izmystic.dev/images/n96bfssu.jpg)
