@@ -1,5 +1,5 @@
-# qb-multicharacter
-Multi Character Feature for QB-Core Framework :people_holding_hands:
+# qbx-multicharacter
+Multi Character Feature for QBOX Framework :people_holding_hands:
 
 Added support for setting default number of characters per player per Rockstar license
 
@@ -19,7 +19,7 @@ Added support for setting default number of characters per player per Rockstar l
 
 ## Installation
 ### Manual
-- Download the script and put it in the `[qb]` directory.
+- Download the script and put it in the `[qbx]` directory.
 - Add the following code to your server.cfg/resouces.cfg
 ```
 ensure qbx-core
