@@ -88,7 +88,7 @@ lib.callback.register('qb-multicharacter:callback:defaultSpawn', function()
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
     TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
     TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
-    exports.spawnmanager:spawnPlayer()
+    pcall(function() exports.spawnmanager:spawnPlayer() end)
     while not IsScreenFadedIn() do Wait(0) end
     return true
 end)
